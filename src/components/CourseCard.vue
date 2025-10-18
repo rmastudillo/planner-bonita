@@ -5,6 +5,9 @@
     draggable="true"
     @dragstart="handleDragStart"
     @dragend="handleDragEnd"
+    @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd"
   >
     <button
       v-if="showRemoveButton"
@@ -33,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import type { Course } from '@/types/course'
 
 interface Props {
@@ -57,7 +60,13 @@ const emit = defineEmits<{
   dragstart: [course: Course]
   dragend: []
   remove: [course: Course]
+  touchdragstart: [course: Course, touch: Touch]
+  touchdragend: [course: Course, touch: Touch]
 }>()
+
+const touchStartY = ref(0)
+const touchStartX = ref(0)
+const isTouchDragging = ref(false)
 
 const semesterLabel = computed(() => {
   switch (props.course.semester) {
@@ -78,7 +87,7 @@ const semesterBadgeClass = computed(() => {
 
 const cardClasses = computed(() => {
   return {
-    'is-dragging': props.isDragging,
+    'is-dragging': props.isDragging || isTouchDragging.value,
     'is-invalid': props.isInvalid,
     'has-prerequisite-warning': !props.prerequisitesMet,
     [`area-${props.course.area.toLowerCase().replace(/\s+/g, '-')}`]: true
@@ -109,6 +118,45 @@ function handleDragEnd(event: DragEvent) {
 
 function handleRemove() {
   emit('remove', props.course)
+}
+
+// Touch handlers for mobile support
+function handleTouchStart(event: TouchEvent) {
+  const touch = event.touches[0]
+  if (!touch) return
+
+  touchStartX.value = touch.clientX
+  touchStartY.value = touch.clientY
+  isTouchDragging.value = false
+
+  emit('touchdragstart', props.course, touch)
+}
+
+function handleTouchMove(event: TouchEvent) {
+  if (event.touches.length !== 1) return
+
+  const touch = event.touches[0]
+  if (!touch) return
+
+  const deltaX = Math.abs(touch.clientX - touchStartX.value)
+  const deltaY = Math.abs(touch.clientY - touchStartY.value)
+
+  // Si se movió más de 10px, considerarlo como drag
+  if (deltaX > 10 || deltaY > 10) {
+    isTouchDragging.value = true
+    event.preventDefault() // Prevenir scroll mientras se arrastra
+  }
+}
+
+function handleTouchEnd(event: TouchEvent) {
+  if (!isTouchDragging.value) return
+
+  const touch = event.changedTouches[0]
+  if (!touch) return
+
+  emit('touchdragend', props.course, touch)
+
+  isTouchDragging.value = false
 }
 </script>
 
@@ -169,6 +217,9 @@ function handleRemove() {
 
 .course-card.is-dragging {
   opacity: 0.5;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .course-card.is-invalid {

@@ -5,6 +5,7 @@
     @dragover.prevent="handleDragOver"
     @dragleave="handleDragLeave"
     @drop="handleDrop"
+    @touchmove.prevent="handleTouchMove"
   >
     <div class="semester-header">
       <div class="semester-title">
@@ -38,6 +39,8 @@
           "
           @dragstart="handleCourseDragStart(course)"
           @dragend="handleCourseDragEnd"
+          @touchdragstart="handleCourseTouchStart"
+          @touchdragend="handleCourseTouchEnd"
         />
       </transition-group>
 
@@ -70,6 +73,7 @@ const emit = defineEmits<{
 
 const isDragOver = ref(false)
 const draggedCourse = ref<Course | null>(null)
+const touchDraggedCourse = ref<Course | null>(null)
 
 const typeLabel = computed(() => {
   return props.semester.type === 'par' ? 'Par' : 'Impar'
@@ -135,6 +139,51 @@ function handleCourseDragStart(course: Course) {
 function handleCourseDragEnd() {
   draggedCourse.value = null
   emit('courseDragEnd')
+}
+
+// Touch handlers for mobile
+function handleCourseTouchStart(course: Course) {
+  touchDraggedCourse.value = course
+  emit('courseDragStart', course, props.semester.number)
+}
+
+function handleCourseTouchEnd(course: Course, touch: Touch) {
+  if (!touchDraggedCourse.value) return
+
+  // Encontrar el elemento en las coordenadas del touch
+  const element = document.elementFromPoint(touch.clientX, touch.clientY)
+  if (!element) {
+    touchDraggedCourse.value = null
+    emit('courseDragEnd')
+    return
+  }
+
+  // Buscar el semestre panel más cercano
+  const semesterPanel = element.closest('.semester-panel')
+  if (semesterPanel) {
+    const semesterNumber = parseInt(
+      semesterPanel.querySelector('.semester-title h3')?.textContent?.match(/\d+/)?.[0] || '0'
+    )
+    if (semesterNumber > 0) {
+      emit('drop', course.id, semesterNumber)
+    }
+  }
+
+  touchDraggedCourse.value = null
+  emit('courseDragEnd')
+}
+
+function handleTouchMove(event: TouchEvent) {
+  if (!touchDraggedCourse.value) return
+
+  const touch = event.touches[0]
+  if (!touch) return
+
+  // Verificar si el touch está sobre este semestre
+  const element = document.elementFromPoint(touch.clientX, touch.clientY)
+  const isOverThisSemester = element?.closest('.semester-panel') === event.currentTarget
+
+  isDragOver.value = isOverThisSemester
 }
 </script>
 
