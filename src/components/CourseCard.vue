@@ -19,6 +19,10 @@
       <span class="course-credits">{{ course.credits }} cr</span>
     </div>
     <div class="course-name">{{ course.name }}</div>
+    <div v-if="!prerequisitesMet && prerequisitesDescription" class="prerequisite-warning">
+      <span class="warning-icon">⚠</span>
+      <span class="warning-text" :title="prerequisitesDescription">Falta: {{ prerequisitesDescription }}</span>
+    </div>
     <div class="course-footer">
       <span class="course-semester-badge" :class="semesterBadgeClass">
         {{ semesterLabel }}
@@ -37,12 +41,16 @@ interface Props {
   isDragging?: boolean
   isInvalid?: boolean
   showRemoveButton?: boolean
+  prerequisitesMet?: boolean
+  prerequisitesDescription?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isDragging: false,
   isInvalid: false,
-  showRemoveButton: false
+  showRemoveButton: false,
+  prerequisitesMet: true,
+  prerequisitesDescription: ''
 })
 
 const emit = defineEmits<{
@@ -72,6 +80,7 @@ const cardClasses = computed(() => {
   return {
     'is-dragging': props.isDragging,
     'is-invalid': props.isInvalid,
+    'has-prerequisite-warning': !props.prerequisitesMet,
     [`area-${props.course.area.toLowerCase().replace(/\s+/g, '-')}`]: true
   }
 })
@@ -107,11 +116,11 @@ function handleRemove() {
 .course-card {
   background: white;
   border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 6px;
+  padding: 8px 10px;
   cursor: grab;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   user-select: none;
   position: relative;
 }
@@ -119,14 +128,14 @@ function handleRemove() {
 .remove-course-button {
   position: absolute;
   top: 4px;
-  right: 4px;
+  left: 4px;
   background: #ef4444;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -167,53 +176,58 @@ function handleRemove() {
   background-color: #fee;
 }
 
+.course-card.has-prerequisite-warning {
+  border-color: #f59e0b;
+  background-color: #fffbeb;
+}
+
 .course-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .course-code {
   font-weight: 700;
-  font-size: 13px;
+  font-size: 11px;
   color: #1e40af;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .course-credits {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 10px;
   color: #64748b;
   background: #f1f5f9;
-  padding: 2px 8px;
-  border-radius: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
 }
 
 .course-name {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: #334155;
-  margin-bottom: 8px;
-  line-height: 1.4;
-  min-height: 40px;
+  margin-bottom: 4px;
+  line-height: 1.3;
+  min-height: auto;
 }
 
 .course-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-top: auto;
 }
 
 .course-semester-badge {
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
 }
 
 .course-semester-badge.semester-par {
@@ -232,7 +246,7 @@ function handleRemove() {
 }
 
 .course-area {
-  font-size: 10px;
+  font-size: 9px;
   color: #94a3b8;
   font-weight: 500;
   text-align: right;
@@ -242,24 +256,52 @@ function handleRemove() {
   white-space: nowrap;
 }
 
+.prerequisite-warning {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 4px 6px;
+  background: #fef3c7;
+  border-radius: 4px;
+  border-left: 2px solid #f59e0b;
+}
+
+.warning-icon {
+  font-size: 11px;
+  color: #f59e0b;
+  flex-shrink: 0;
+}
+
+.warning-text {
+  font-size: 9px;
+  color: #92400e;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
 /* Estilos por área */
 .course-card.area-ciencias-básicas {
-  border-left: 4px solid #3b82f6;
+  border-left: 3px solid #3b82f6;
 }
 
 .course-card.area-farmacia {
-  border-left: 4px solid #8b5cf6;
+  border-left: 3px solid #8b5cf6;
 }
 
 .course-card.area-plan-común {
-  border-left: 4px solid #10b981;
+  border-left: 3px solid #10b981;
 }
 
 .course-card.area-título {
-  border-left: 4px solid #f59e0b;
+  border-left: 3px solid #f59e0b;
 }
 
 .course-card.area-práctica-profesional {
-  border-left: 4px solid #ef4444;
+  border-left: 3px solid #ef4444;
 }
 </style>

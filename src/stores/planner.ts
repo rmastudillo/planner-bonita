@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Course, SemesterPlan, PlannerState } from '@/types/course'
 import { COURSES_DATA } from '@/data/courses'
+import { arePrerequisitesMet, getPrerequisitesDescription } from '@/utils/prerequisites'
 
 const STORAGE_KEY = 'planner-bonita-state-v4' // v4: Asignaturas en semestres originales
 const STORAGE_VERSION = 4
@@ -257,6 +258,30 @@ export const usePlannerStore = defineStore('planner', () => {
     return semester.courses.reduce((sum, course) => sum + course.credits, 0)
   }
 
+  /**
+   * Obtiene los IDs de todos los cursos en semestres anteriores al especificado
+   * (asumimos que estos cursos ya fueron completados)
+   */
+  function getCompletedCourseIds(beforeSemester: number): string[] {
+    return semesters.value
+      .filter((s) => s.number < beforeSemester)
+      .flatMap((s) => s.courses.map((c) => c.id))
+  }
+
+  /**
+   * Verifica si un curso cumple con sus prerequisitos dado un semestre específico
+   */
+  function checkPrerequisites(course: Course, semesterNumber: number): {
+    met: boolean
+    description: string
+  } {
+    const completedIds = getCompletedCourseIds(semesterNumber)
+    const met = arePrerequisitesMet(course, completedIds)
+    const description = getPrerequisitesDescription(course)
+
+    return { met, description }
+  }
+
   // Storage functions
   function saveToStorage() {
     const state: PlannerState = {
@@ -293,6 +318,8 @@ export const usePlannerStore = defineStore('planner', () => {
     addNewSemester,
     removeSemester,
     resetPlanner,
-    getSemesterCredits
+    getSemesterCredits,
+    getCompletedCourseIds,
+    checkPrerequisites
   }
 })

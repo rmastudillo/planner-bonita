@@ -1,3 +1,9 @@
+// Tipos para manejar prerequisitos con lógica booleana
+export type PrerequisiteExpression =
+  | string // ID de un solo curso
+  | { or: string[] } // Cualquiera de estos cursos (OR)
+  | { and: PrerequisiteExpression[] } // Todos estos cursos (AND)
+
 export interface Course {
   id: string
   code: string
@@ -6,7 +12,11 @@ export interface Course {
   semester: 'par' | 'impar' | 'ambos' // Indica en qué tipo de semestre se dicta
   originalSemester: number // Semestre original en la malla (1-10)
   area: string // Ciencias Básicas, Farmacia, etc.
-  prerequisites?: string[] // IDs de cursos prerequisitos (para futuro)
+  prerequisites?: PrerequisiteExpression[] // Array de prerequisitos (conectados con AND)
+  // Ejemplos:
+  // ['QUI110'] - Requiere QUI110
+  // [{ or: ['QIM104', 'QIM104A'] }] - Requiere QIM104 O QIM104A
+  // [{ or: ['A', 'B'] }, { or: ['C', 'D'] }] - Requiere (A O B) Y (C O D)
 }
 
 export interface SemesterPlan {

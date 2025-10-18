@@ -84,16 +84,6 @@ function handleDragEnd() {
   draggedFromSemester.value = null
 }
 
-function handleRemoveSemester(semesterNumber: number) {
-  if (confirm(`¿Eliminar el Semestre ${semesterNumber}?`)) {
-    plannerStore.removeSemester(semesterNumber)
-  }
-}
-
-function handleAddSemester() {
-  plannerStore.addNewSemester()
-}
-
 function handleReset() {
   if (confirm('¿Resetear toda la planificación? Esto devolverá todas las asignaturas a sus semestres originales.')) {
     plannerStore.resetPlanner()
@@ -175,7 +165,6 @@ function handleCourseRemove(course: Course, fromSemester: number) {
           <h2>Tu Planificación</h2>
           <div class="header-actions">
             <button class="btn btn-secondary" @click="handleReset">Resetear</button>
-            <button class="btn btn-primary" @click="handleAddSemester">+ Agregar Semestre</button>
           </div>
         </div>
 
@@ -184,21 +173,13 @@ function handleCourseRemove(course: Course, fromSemester: number) {
             v-for="semester in plannerStore.semesters"
             :key="semester.number"
             :semester="semester"
-            :can-remove="plannerStore.semesters.length > 1"
             @drop="handleDrop"
-            @remove-semester="handleRemoveSemester"
             @course-drag-start="handleSemesterCourseDragStart"
             @course-drag-end="handleDragEnd"
             @course-remove="handleCourseRemove"
           />
         </div>
 
-        <div v-if="plannerStore.semesters.length === 0" class="no-semesters">
-          <p>No hay semestres planificados</p>
-          <button class="btn btn-primary" @click="handleAddSemester">
-            Crear primer semestre
-          </button>
-        </div>
       </main>
     </div>
   </div>
@@ -473,8 +454,8 @@ function handleCourseRemove(course: Course, fromSemester: number) {
 
 /* Hacer que cada semestre tenga un ancho fijo para la línea temporal */
 .semesters-grid > * {
-  min-width: 380px;
-  max-width: 380px;
+  min-width: 260px;
+  max-width: 260px;
   flex-shrink: 0;
 }
 
@@ -496,8 +477,8 @@ function handleCourseRemove(course: Course, fromSemester: number) {
   }
 
   .semesters-grid > * {
-    min-width: 320px;
-    max-width: 320px;
+    min-width: 240px;
+    max-width: 240px;
   }
 }
 
@@ -516,8 +497,8 @@ function handleCourseRemove(course: Course, fromSemester: number) {
   }
 
   .semesters-grid > * {
-    min-width: 280px;
-    max-width: 280px;
+    min-width: 220px;
+    max-width: 220px;
   }
 
   .courses-sidebar {

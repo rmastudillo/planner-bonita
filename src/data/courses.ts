@@ -7,8 +7,8 @@ import type { Course } from '@/types/course'
 export const COURSES_DATA: Course[] = [
   // SEMESTRE 1
   {
-    id: 'QUI110',
-    code: 'QUI110',
+    id: 'QIM100I',
+    code: 'QIM100I',
     name: 'Química General I',
     credits: 10,
     semester: 'ambos',
@@ -16,37 +16,46 @@ export const COURSES_DATA: Course[] = [
     area: 'Ciencias Básicas'
   },
   {
-    id: 'MAT021',
-    code: 'MAT021',
-    name: 'Matemática I',
+    id: 'MAT100',
+    code: 'MMAT100',
+    name: 'Precalculo',
     credits: 10,
     semester: 'ambos',
     originalSemester: 1,
     area: 'Ciencias Básicas'
   },
   {
-    id: 'IWG101',
-    code: 'IWG101',
-    name: 'Introducción a la Ingeniería',
-    credits: 5,
+    id: 'QIF100B',
+    code: 'QIF100B',
+    name: 'Introducción a las ciencias farmaceuticas',
+    credits: 0,
     semester: 'ambos',
     originalSemester: 1,
     area: 'Plan Común'
   },
   {
-    id: 'FIS110',
-    code: 'FIS110',
-    name: 'Física General I',
+    id: 'QIF117',
+    code: 'QIF117',
+    name: 'El mundo de los medicamentos',
     credits: 10,
     semester: 'ambos',
     originalSemester: 1,
     area: 'Ciencias Básicas'
   },
   {
-    id: 'IWM011',
-    code: 'IWM011',
-    name: 'Introducción a la Matemática',
-    credits: 5,
+    id: 'FIL2001',
+    code: 'FIL2001',
+    name: 'Filosofía: para qué',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 1,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'QIM101Q',
+    code: 'QIM101Q',
+    name: 'Laboratorio química general',
+    credits: 10,
     semester: 'ambos',
     originalSemester: 1,
     area: 'Plan Común'
@@ -54,340 +63,499 @@ export const COURSES_DATA: Course[] = [
 
   // SEMESTRE 2
   {
-    id: 'QUI120',
-    code: 'QUI120',
+    id: 'QIM100A',
+    code: 'QIM100A',
     name: 'Química General II',
     credits: 10,
     semester: 'ambos',
     originalSemester: 2,
     area: 'Ciencias Básicas',
-    prerequisites: ['QUI110']
+    prerequisites: ['QIM100I']
   },
   {
-    id: 'MAT022',
-    code: 'MAT022',
-    name: 'Matemática II',
-    credits: 10,
-    semester: 'ambos',
-    originalSemester: 2,
-    area: 'Ciencias Básicas',
-    prerequisites: ['MAT021']
-  },
-  {
-    id: 'FIS120',
-    code: 'FIS120',
-    name: 'Física General II',
-    credits: 10,
-    semester: 'ambos',
-    originalSemester: 2,
-    area: 'Ciencias Básicas',
-    prerequisites: ['FIS110']
-  },
-  {
-    id: 'BIO110',
-    code: 'BIO110',
-    name: 'Biología',
+    id: 'FIS109C',
+    code: 'FIS109C',
+    name: 'Física Para ciencias',
     credits: 10,
     semester: 'ambos',
     originalSemester: 2,
     area: 'Ciencias Básicas'
   },
-
+  {
+    id: 'MAT1100',
+    code: 'MAT1100',
+    name: 'Cálculo I',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 2,
+    area: 'Ciencias Básicas'
+  },
   // SEMESTRE 3
   {
-    id: 'QUI210',
-    code: 'QUI210',
+    id: 'QIM102A',
+    code: 'QIM102A',
     name: 'Química Orgánica I',
     credits: 10,
     semester: 'ambos',
     originalSemester: 3,
-    area: 'Ciencias Básicas',
-    prerequisites: ['QUI120']
+    area: 'Ciencias Básicas'
   },
   {
-    id: 'BIO210',
-    code: 'BIO210',
-    name: 'Biología Celular',
+    id: 'EYP2310',
+    code: 'EYP2310',
+    name: 'Estadística para qim y farmacia',
     credits: 10,
     semester: 'ambos',
     originalSemester: 3,
-    area: 'Ciencias Básicas',
-    prerequisites: ['BIO110']
+    area: 'Ciencias Básicas'
   },
   {
-    id: 'QUI230',
-    code: 'QUI230',
-    name: 'Química Analítica I',
+    id: 'BIO141C',
+    code: 'BIO141C',
+    name: 'Biología de la célula',
     credits: 10,
     semester: 'ambos',
     originalSemester: 3,
-    area: 'Ciencias Básicas',
-    prerequisites: ['QUI120']
+    area: 'Ciencias Básicas'
   },
   {
-    id: 'MAT023',
-    code: 'MAT023',
-    name: 'Matemática III',
+    id: 'QIF115A',
+    code: 'QIF115A',
+    name: 'Botánica y farmacognosia',
     credits: 10,
     semester: 'ambos',
     originalSemester: 3,
-    area: 'Ciencias Básicas',
-    prerequisites: ['MAT022']
+    area: 'Ciencias Básicas'
   },
 
   // SEMESTRE 4
   {
-    id: 'QUI220',
-    code: 'QUI220',
+    id: 'QIM103A',
+    code: 'QIM103A',
     name: 'Química Orgánica II',
     credits: 10,
     semester: 'ambos',
     originalSemester: 4,
-    area: 'Ciencias Básicas',
-    prerequisites: ['QUI210']
-  },
-  {
-    id: 'BIO220',
-    code: 'BIO220',
-    name: 'Bioquímica I',
-    credits: 10,
-    semester: 'ambos',
-    originalSemester: 4,
-    area: 'Ciencias Básicas',
-    prerequisites: ['BIO210', 'QUI210']
-  },
-  {
-    id: 'QUI240',
-    code: 'QUI240',
-    name: 'Química Analítica II',
-    credits: 10,
-    semester: 'ambos',
-    originalSemester: 4,
-    area: 'Ciencias Básicas',
-    prerequisites: ['QUI230']
-  },
-  {
-    id: 'FIS230',
-    code: 'FIS230',
-    name: 'Termodinámica',
-    credits: 10,
-    semester: 'ambos',
-    originalSemester: 4,
-    area: 'Ciencias Básicas',
-    prerequisites: ['FIS120']
-  },
-
-  // SEMESTRE 5 - Farmacia
-  {
-    id: 'FAR310',
-    code: 'FAR310',
-    name: 'Farmacología I',
-    credits: 10,
-    semester: 'impar',
-    originalSemester: 5,
-    area: 'Farmacia',
-    prerequisites: ['BIO220']
-  },
-  {
-    id: 'FAR320',
-    code: 'FAR320',
-    name: 'Química Farmacéutica I',
-    credits: 10,
-    semester: 'impar',
-    originalSemester: 5,
-    area: 'Farmacia',
-    prerequisites: ['QUI220']
-  },
-  {
-    id: 'BIO310',
-    code: 'BIO310',
-    name: 'Fisiología',
-    credits: 10,
-    semester: 'impar',
-    originalSemester: 5,
-    area: 'Ciencias Básicas',
-    prerequisites: ['BIO220']
-  },
-  {
-    id: 'FAR330',
-    code: 'FAR330',
-    name: 'Farmacotecnia I',
-    credits: 10,
-    semester: 'impar',
-    originalSemester: 5,
-    area: 'Farmacia'
-  },
-
-  // SEMESTRE 6
-  {
-    id: 'FAR410',
-    code: 'FAR410',
-    name: 'Farmacología II',
-    credits: 10,
-    semester: 'par',
-    originalSemester: 6,
-    area: 'Farmacia',
-    prerequisites: ['FAR310']
-  },
-  {
-    id: 'FAR420',
-    code: 'FAR420',
-    name: 'Química Farmacéutica II',
-    credits: 10,
-    semester: 'par',
-    originalSemester: 6,
-    area: 'Farmacia',
-    prerequisites: ['FAR320']
-  },
-  {
-    id: 'FAR430',
-    code: 'FAR430',
-    name: 'Farmacotecnia II',
-    credits: 10,
-    semester: 'par',
-    originalSemester: 6,
-    area: 'Farmacia',
-    prerequisites: ['FAR330']
-  },
-  {
-    id: 'BIO410',
-    code: 'BIO410',
-    name: 'Microbiología',
-    credits: 10,
-    semester: 'par',
-    originalSemester: 6,
     area: 'Ciencias Básicas'
   },
-
+  {
+    id: 'QIM109A',
+    code: 'QIM109A',
+    name: 'Química Analítica I',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 4,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'BIO135C',
+    code: 'BIO135C',
+    name: 'Fisiología',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 4,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'TTF',
+    code: 'TTF',
+    name: 'Formación teológica',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 4,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'QIM103A',
+    code: 'QIM103A',
+    name: 'Quimica Organica II',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 4,
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QIM102', 'QIM102A', 'QIM102B', 'QQO2203'] }]
+  },
+  // SEMESTRE 5
+  {
+    id: 'QIM104A',
+    code: 'QIM104A',
+    name: 'Laboratorio de química orgánica',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 5,
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QIM103', 'QIM103A'] }]
+  },
+  {
+    id: 'QIM117',
+    code: 'QIM117',
+    name: 'Bioquímica',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 5,
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QIM103A', 'QIM103', 'QIM200', 'QQO2303', 'QUO1001', 'QUO1003'] }]
+  },
+  {
+    id: 'QIM150A',
+    code: 'QIM150A',
+    name: 'Química-física',
+    credits: 10,
+    semester: 'par',
+    originalSemester: 5,
+    area: 'Ciencias Básicas',
+    prerequisites: ['FIS109C', 'MAT1100', 'QIM100A']
+  },
+  {
+    id: 'QIM111',
+    code: 'QIM111',
+    name: 'Análisis instrumental',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 5,
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QIM110', 'IIQ1012', 'QIM109A'] }]
+  },
+  {
+    id: 'MEB203B',
+    code: 'MEB203B',
+    name: 'Fisiopatología',
+    credits: 10,
+    semester: 'impar',
+    originalSemester: 5,
+    area: 'Ciencias Básicas',
+    prerequisites: ['BIO135C']
+  },
+  // SEMESTRE 6
+  {
+    id: 'BIO145C',
+    code: 'BIO145C',
+    name: 'Microbología e inmunología',
+    credits: 10,
+    semester: 'par',
+    originalSemester: 6,
+    area: 'Ciencias Básicas',
+    prerequisites: ['BIO135C', 'QIM117']
+  },
+  {
+    id: 'QIF101A',
+    code: 'QIF101A',
+    name: 'Farmaco-química I',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 6,
+    area: 'Ciencias Básicas',
+    prerequisites: [
+      { or: ['QIM104', 'QIM104A', 'QQO2401'] },
+      { or: ['QIM150', 'QIM150A', 'QQF360A'] }
+    ]
+  },
+  {
+    id: 'QIF104A',
+    code: 'QIF104A',
+    name: 'Farmacocinética y bio-farmacia',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 6,
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QIM150', 'QIM150A', 'QQF360A'] }]
+  },
+  {
+    id: 'QIF150',
+    code: 'QIF150',
+    name: 'Farmacología I',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 6,
+    area: 'Ciencias Básicas',
+    prerequisites: ['MEB203B', 'QIM117']
+  },
   // SEMESTRE 7
   {
-    id: 'FAR510',
-    code: 'FAR510',
-    name: 'Farmacología III',
+    id: 'QIF102A',
+    code: 'QIF102A',
+    name: 'Farmaco-química II',
     credits: 10,
-    semester: 'impar',
+    semester: 'ambos',
     originalSemester: 7,
-    area: 'Farmacia',
-    prerequisites: ['FAR410']
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF101A', 'QIF150']
   },
   {
-    id: 'FAR520',
-    code: 'FAR520',
-    name: 'Bromatología',
+    id: 'QIF105A',
+    code: 'QIF105A',
+    name: 'Tecnología farmacéutica I',
     credits: 10,
-    semester: 'impar',
+    semester: 'ambos',
     originalSemester: 7,
-    area: 'Farmacia'
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF104A', 'QIM111']
   },
   {
-    id: 'FAR530',
-    code: 'FAR530',
-    name: 'Toxicología',
+    id: 'QIF116',
+    code: 'QIF116',
+    name: 'FARMACOLOGÍA II',
     credits: 10,
-    semester: 'impar',
+    semester: 'ambos',
     originalSemester: 7,
-    area: 'Farmacia',
-    prerequisites: ['FAR410']
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['BIO264C', 'QIF150', 'QIF150'] }]
   },
   {
-    id: 'FAR540',
-    code: 'FAR540',
-    name: 'Control de Calidad',
+    id: 'QIF118A',
+    code: 'QIF118A',
+    name: 'Bioquimica Clinica',
     credits: 10,
-    semester: 'impar',
+    semester: 'ambos',
     originalSemester: 7,
-    area: 'Farmacia'
+    area: 'Ciencias Básicas',
+    prerequisites: ['MEB203B', 'QIF150', 'QIM117']
   },
-
   // SEMESTRE 8
   {
-    id: 'FAR610',
-    code: 'FAR610',
-    name: 'Farmacocinética',
+    id: 'QIF108',
+    code: 'QIF108',
+    name: 'Toxicología',
     credits: 10,
-    semester: 'par',
+    semester: 'ambos',
     originalSemester: 8,
-    area: 'Farmacia',
-    prerequisites: ['FAR510']
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF102A', 'QIF116']
   },
   {
-    id: 'FAR620',
-    code: 'FAR620',
-    name: 'Farmacia Clínica',
-    credits: 10,
-    semester: 'par',
+    id: 'QIF400',
+    code: 'QIF400',
+    name: 'Tesis de grado',
+    credits: 40,
+    semester: 'ambos',
     originalSemester: 8,
-    area: 'Farmacia',
-    prerequisites: ['FAR510']
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF105A', 'QIF116']
   },
-  {
-    id: 'FAR630',
-    code: 'FAR630',
-    name: 'Legislación Farmacéutica',
-    credits: 4,
-    semester: 'par',
-    originalSemester: 8,
-    area: 'Farmacia'
-  },
-  {
-    id: 'FAR640',
-    code: 'FAR640',
-    name: 'Gestión Farmacéutica',
-    credits: 4,
-    semester: 'par',
-    originalSemester: 8,
-    area: 'Farmacia'
-  },
-
   // SEMESTRE 9
   {
-    id: 'FAR710',
-    code: 'FAR710',
-    name: 'Farmacia Hospitalaria',
-    credits: 8,
-    semester: 'impar',
-    originalSemester: 9,
-    area: 'Farmacia',
-    prerequisites: ['FAR620']
-  },
-  {
-    id: 'FAR720',
-    code: 'FAR720',
-    name: 'Farmacia Comunitaria',
-    credits: 8,
-    semester: 'impar',
-    originalSemester: 9,
-    area: 'Farmacia'
-  },
-  {
-    id: 'FAR730',
-    code: 'FAR730',
-    name: 'Proyecto de Título I',
+    id: 'QIF103A',
+    code: 'QIF103A',
+    name: 'Fármaco-química III',
     credits: 10,
-    semester: 'impar',
+    semester: 'ambos',
     originalSemester: 9,
-    area: 'Título'
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QIF102', 'QIF102A'] }]
+  },
+  {
+    id: 'QIF110A',
+    code: 'QIF110A',
+    name: 'Farmacia clínica y atención farmaceutica (QIF103A(c))',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 9,
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF116']
+  },
+  {
+    id: 'QIF111A',
+    code: 'QIF111A',
+    name: 'Farmacología III (QIF103A(c))',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 9,
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF116']
+  },
+  {
+    id: 'QIF106A',
+    code: 'QIF106A',
+    name: 'Tecnología farmacéutica II',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 9,
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QIF105', 'QIF105A'] }]
+  },
+  {
+    id: 'OP1',
+    code: 'OP1',
+    name: 'Optativo de profundización',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 9,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'QIF113A',
+    code: 'QIF113A',
+    name: 'Práctica profesional I',
+    credits: 0,
+    semester: 'ambos',
+    originalSemester: 9,
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF102A', 'QIF105A']
   },
 
   // SEMESTRE 10
   {
-    id: 'FAR810',
-    code: 'FAR810',
-    name: 'Internado Farmacéutico',
-    credits: 15,
+    id: 'MED231Q',
+    code: 'MED231Q',
+    name: 'Salud pública para química y farmacia',
+    credits: 5,
     semester: 'par',
     originalSemester: 10,
-    area: 'Práctica Profesional',
-    prerequisites: ['FAR710', 'FAR720']
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF150']
   },
   {
-    id: 'FAR820',
-    code: 'FAR820',
-    name: 'Proyecto de Título II',
-    credits: 9,
-    semester: 'par',
+    id: 'QIF112A',
+    code: 'QIF112A',
+    name: 'Internado clínico',
+    credits: 10,
+    semester: 'ambos',
     originalSemester: 10,
-    area: 'Título',
-    prerequisites: ['FAR730']
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF111A', 'QIF110A']
+  },
+  {
+    id: 'QIF109A',
+    code: 'QIF109A',
+    name: 'Farmacia privada',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 10,
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QIF102', 'QIF102A'] }]
+  },
+  {
+    id: 'QIF107',
+    code: 'QIF107',
+    name: 'Legislación y deontología farmacéutica',
+    credits: 5,
+    semester: 'ambos',
+    originalSemester: 10,
+    area: 'Ciencias Básicas',
+    prerequisites: [{ or: ['QFF3702', 'QIF101', 'QIF101A'] }]
+  },
+  {
+    id: 'OP2',
+    code: 'OP2',
+    name: 'Optativo de profundización 2',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 10,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'OP3',
+    code: 'OP3',
+    name: 'Optativo de profundización 3',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 10,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'QIF114A',
+    code: 'QIF114A',
+    name: 'Práctica profesional II',
+    credits: 0,
+    semester: 'ambos',
+    originalSemester: 10,
+    area: 'Ciencias Básicas',
+    prerequisites: ['QIF102A', 'QIF105A']
+  },
+  {
+    id: 'FG1',
+    code: 'FG1',
+    name: 'Formación general 1',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 2,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'FG2',
+    code: 'FG2',
+    name: 'Formación general 2',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 2,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'FG3',
+    code: 'FG3',
+    name: 'Formación general 3',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 3,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'FG4',
+    code: 'FG4',
+    name: 'Formación general 4',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 4,
+    area: 'Ciencias Básicas'
+  },
+  {
+    id: 'FG5',
+    code: 'FG5',
+    name: 'Formación general 5',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 6,
+    area: 'Ciencias Básicas'
+  },
+
+  {
+    id: 'FG6',
+    code: 'FG6',
+    name: 'Formación general 6',
+    credits: 10,
+    semester: 'ambos',
+    originalSemester: 7,
+    area: 'Ciencias Básicas'
   }
 ]
+
+// EJEMPLOS DE PREREQUISITOS COMPLEJOS (comentados para referencia futura):
+//
+// Ejemplo 1: Requiere (QIM104 O QIM104A O QQO2401) Y (QIM150 O QIM150A O QQF360A)
+// {
+//   id: 'QIF101A',
+//   code: 'QIF101A',
+//   name: 'Química Inorgánica y Analítica',
+//   credits: 10,
+//   semester: 'ambos',
+//   originalSemester: 3,
+//   area: 'Ciencias Básicas',
+//   prerequisites: [
+//     { or: ['QIM104', 'QIM104A', 'QQO2401'] },
+//     { or: ['QIM150', 'QIM150A', 'QQF360A'] }
+//   ]
+// }
+//
+// Ejemplo 2: Requiere solo un curso de varios
+// {
+//   id: 'CURSO_EJEMPLO',
+//   code: 'CURSO_EJEMPLO',
+//   name: 'Curso de Ejemplo',
+//   credits: 10,
+//   semester: 'ambos',
+//   originalSemester: 4,
+//   area: 'Farmacia',
+//   prerequisites: [{ or: ['MAT021', 'MAT022', 'MAT023'] }]
+// }
+//
+// Ejemplo 3: Requiere múltiples cursos específicos (AND simple)
+// {
+//   id: 'OTRO_EJEMPLO',
+//   code: 'OTRO_EJEMPLO',
+//   name: 'Otro Ejemplo',
+//   credits: 10,
+//   semester: 'par',
+//   originalSemester: 5,
+//   area: 'Farmacia',
+//   prerequisites: ['BIO220', 'QUI220'] // Requiere BIO220 Y QUI220
+// }

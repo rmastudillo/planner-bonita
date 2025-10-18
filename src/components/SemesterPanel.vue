@@ -21,14 +21,7 @@
       </div>
       <div class="semester-stats">
         <span class="credits-count">{{ totalCredits }} / {{ semester.maxCredits }} cr</span>
-        <button
-          v-if="canRemove"
-          class="remove-button"
-          @click="handleRemoveSemester"
-          title="Eliminar semestre"
-        >
-          ×
-        </button>
+        <div v-if="isOverloaded" class="warning-message">⚠️ Excede el límite de créditos</div>
       </div>
     </div>
 
@@ -38,10 +31,13 @@
           v-for="course in semester.courses"
           :key="course.id"
           :course="course"
-          :show-remove-button="true"
+          :show-remove-button="false"
+          :prerequisites-met="plannerStore.checkPrerequisites(course, semester.number).met"
+          :prerequisites-description="
+            plannerStore.checkPrerequisites(course, semester.number).description
+          "
           @dragstart="handleCourseDragStart(course)"
           @dragend="handleCourseDragEnd"
-          @remove="handleCourseRemove"
         />
       </transition-group>
 
@@ -50,10 +46,6 @@
         <p class="empty-hint">{{ emptyHint }}</p>
       </div>
     </div>
-
-    <div v-if="isOverloaded" class="warning-message">
-      ⚠️ Excede el límite de créditos
-    </div>
   </div>
 </template>
 
@@ -61,22 +53,19 @@
 import { computed, ref } from 'vue'
 import type { Course, SemesterPlan } from '@/types/course'
 import CourseCard from './CourseCard.vue'
+import { usePlannerStore } from '@/stores/planner'
 
 interface Props {
   semester: SemesterPlan
-  canRemove?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  canRemove: false
-})
+const props = defineProps<Props>()
+const plannerStore = usePlannerStore()
 
 const emit = defineEmits<{
   drop: [courseId: string, semesterNumber: number]
-  removeSemester: [semesterNumber: number]
   courseDragStart: [course: Course, fromSemester: number]
   courseDragEnd: []
-  courseRemove: [course: Course, fromSemester: number]
 }>()
 
 const isDragOver = ref(false)
@@ -147,14 +136,6 @@ function handleCourseDragEnd() {
   draggedCourse.value = null
   emit('courseDragEnd')
 }
-
-function handleRemoveSemester() {
-  emit('removeSemester', props.semester.number)
-}
-
-function handleCourseRemove(course: Course) {
-  emit('courseRemove', course, props.semester.number)
-}
 </script>
 
 <style scoped>
@@ -162,9 +143,9 @@ function handleCourseRemove(course: Course) {
   background: #f8fafc;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
-  padding: 20px;
-  min-height: 600px;
-  max-height: 600px;
+  padding: 16px;
+  min-height: 700px;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
@@ -198,25 +179,25 @@ function handleCourseRemove(course: Course) {
 }
 
 .semester-header {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   flex-shrink: 0;
 }
 
 .semester-title {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 .semester-number-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .semester-title h3 {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   color: #1e293b;
   margin: 0;
@@ -225,37 +206,37 @@ function handleCourseRemove(course: Course) {
 .current-badge {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 12px;
+  padding: 3px 8px;
+  border-radius: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+  letter-spacing: 0.3px;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.3);
 }
 
 .semester-meta {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .semester-period {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: #64748b;
   background: #f1f5f9;
-  padding: 4px 12px;
-  border-radius: 12px;
+  padding: 3px 10px;
+  border-radius: 10px;
 }
 
 .semester-type-badge {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 12px;
+  padding: 3px 10px;
+  border-radius: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .semester-type-badge.type-par {
@@ -275,31 +256,9 @@ function handleCourseRemove(course: Course) {
 }
 
 .credits-count {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: #64748b;
-}
-
-.remove-button {
-  background: #ef4444;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.remove-button:hover {
-  background: #dc2626;
-  transform: scale(1.1);
 }
 
 .courses-container {
@@ -329,7 +288,7 @@ function handleCourseRemove(course: Course) {
 .courses-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   padding-right: 4px;
 }
 
@@ -355,13 +314,12 @@ function handleCourseRemove(course: Course) {
 }
 
 .warning-message {
-  margin-top: 12px;
-  padding: 10px 12px;
+  padding: 5px 5px;
   background: #fee2e2;
   border: 1px solid #fecaca;
   border-radius: 6px;
   color: #991b1b;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 600;
   text-align: center;
   flex-shrink: 0;
