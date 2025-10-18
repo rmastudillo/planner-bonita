@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  vue3:
+    container_name: vue3
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV_USER: richi
+        NODE_VERSION: 21-slim⁠
+    user: "1000:1000"
+    environment:
+      - UID=1000
+      - GID=1000
+    volumes:
+      - ./:/usr/src/app
+    command: tail -f /dev/null
+    ports:
+      - "8080:8080"
